@@ -51,7 +51,7 @@ If you like this repository, feel free to leave a star ⭐ to motivate me!
 <br />
 <p align="center">
   <a href="https://github.com/itz-princeyt336/discord-bot">
-    <img src="https://cdn.discordapp.com/attachments/778665159316209748/1055832339328024666/207117434-d98356b1-bf19-418e-9e12-0ef83e0d9a21.png">
+    <img src="https://cdn.discordapp.com/attachments/1195025793957494814/1294935547814481960/image.png?ex=670ecc75&is=670d7af5&hm=7b50c739248df299782f1904bbad2056c1ef849df53b54b690e0492b865ee7b8&">
   </a>
 </p>
 
