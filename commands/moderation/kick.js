@@ -1,0 +1,24 @@
+const { SlashCommandBuilder } = require('discord.js');
+
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName('kick')
+    .setDescription('Kicks a user from the server.')
+    .addUserOption(option => option.setName('user').setDescription('User to kick').setRequired(true)),
+  async execute(interaction) {
+    const user = interaction.options.getUser('user');
+
+    if (!interaction.member.permissions.has('KICK_MEMBERS')) {
+      return interaction.reply({ content: 'You do not have permission to kick members.', ephemeral: true });
+    }
+
+    const member = await interaction.guild.members.fetch(user.id);
+    
+    if (member) {
+      await member.kick('User was kicked by command.');
+      return interaction.reply(`🔨 | Kicked **${user.tag}** from the server.`);
+    } else {
+      return interaction.reply({ content: 'That user is not in this server!', ephemeral: true });
+    }
+  }
+};
