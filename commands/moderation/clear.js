@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('clear')
-    .setDescription('Deletes a specified number of messages from a channel.')
+    .setDescription('Xóa toàn Bộ Tin Nhắn Khỏi Kênh🗑️.')
     .addIntegerOption(option => option.setName('amount').setDescription('Number of messages to delete').setRequired(true)),
   async execute(interaction) {
     const amount = interaction.options.getInteger('amount');
