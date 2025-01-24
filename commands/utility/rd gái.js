@@ -11,7 +11,6 @@ module.exports = {
             'https://i.imgur.com/NxFnFid.mp4',
             'https://i.imgur.com/1qw7u1r.mp4',
             "https://files.catbox.moe/iayeyd.mp4,
-"https://i.imgur.com/IfvmD5N.mp4",
 "https://files.catbox.moe/g6xx6b.mp4",
 "https://files.catbox.moe/1569to.mp4,
 "https://i.imgur.com/Cyz6B8r.mp4",
