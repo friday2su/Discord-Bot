@@ -4,7 +4,7 @@ const User = require('../../database/models/User');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('bank')
-    .setDescription('Check your cash and bank balance.'),
+    .setDescription('Kiểm tra số dư tiền mặt và ngân hàng của bạn.'),
   async execute(interaction) {
     const user = await User.findOne({ userId: interaction.user.id });
     if (!user) {
