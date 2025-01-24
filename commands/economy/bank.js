@@ -8,7 +8,7 @@ module.exports = {
   async execute(interaction) {
     const user = await User.findOne({ userId: interaction.user.id });
     if (!user) {
-      return interaction.reply({ content: 'You have no account yet.', ephemeral: true });
+      return interaction.reply({ content: 'Bạn chưa có tài khoản.', ephemeral: true });
     }
 
     await interaction.reply(`🏦 | **${interaction.user.username}**, you have **${user.cash} cash** and **${user.bank} in the bank**.`);
