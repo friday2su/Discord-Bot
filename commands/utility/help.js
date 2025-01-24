@@ -37,8 +37,8 @@ module.exports = {
         url: botIcon,
       },
       fields: [
-        { name: '📌 __BOT INFO__', value: `> :arrow_right: Prefix: \`${process.env.PREFIX}\`\n> :arrow_right: Discord.js Version: \`v${require('discord.js').version}\`\n> :arrow_right: Running on Node: \`${process.versions.node}\`\n> :arrow_right: Made by \`friday.su\`` },
-        { name: '📋 __Available Categories__', value: categories.map(cat => `> ${categoryEmojis[cat] || '❓'} ${cat.charAt(0).toUpperCase() + cat.slice(1)}`).join('\n') },
+        { name: '📌 __BOT INFO__', value: `> :arrow_right: Prefix: \`${process.env.PREFIX}\`\n> :arrow_right: Discord.js Version: \`v${require('discord.js').version}\`\n> :arrow_right: Running on Node: \`${process.versions.node}\`\n> :arrow_right: Made by \`Minh.son🎮\`` },
+        { name: '📋 __Danh mục có sẵn__', value: categories.map(cat => `> ${categoryEmojis[cat] || '❓'} ${cat.charAt(0).toUpperCase() + cat.slice(1)}`).join('\n') },
       ],
       footer: {
         text: 'Use the buttons below to navigate.',
