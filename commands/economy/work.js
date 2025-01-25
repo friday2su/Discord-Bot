@@ -21,7 +21,7 @@ module.exports = {
     // Cooldown check
     const cooldown = checkCooldown(user.lastWork, config.cooldowns.work);
     if (cooldown.remaining) {
-      return interaction.reply({ content: `🕒 | You can work again in **${cooldown.time}**!`, ephemeral: true });
+      return interaction.reply({ content: `🕒 | Nghỉ tí rồi chém sau **${cooldown.time}**!`, ephemeral: true });
     }
 
     // Randomize work reward between 50 and 200
@@ -30,6 +30,6 @@ module.exports = {
     user.lastWork = Date.now();
     await user.save();
 
-    await interaction.reply(`💼 | You worked hard and earned **${randomCash} cash**!`);
+    await interaction.reply(`💼 | Mày vừa chém 500 thằng bổ túc và được **${randomCash} cash**!`);
   }
 };
