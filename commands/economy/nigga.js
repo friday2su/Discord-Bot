@@ -4,7 +4,7 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('nigga')
-        .setDescription('Chọn công việc cho nhân vật "abc".'),
+        .setDescription('Chọn công việc cho thằng Hùng Công Nông.'),
     async execute(interaction) {
         // Tạo nút cho các công việc
         const buttons = new ActionRowBuilder().addComponents(
@@ -24,7 +24,7 @@ module.exports = {
 
         // Gửi thông báo cho người dùng với các nút
         await interaction.reply({
-            content: 'Hãy chọn công việc mà bạn muốn nhân vật "abc" thực hiện:',
+            content: 'Hãy chọn công việc mà bạn muốn cho nô lệ Hùng thực hiện:',
             components: [buttons]
         });
 
@@ -39,13 +39,13 @@ module.exports = {
             // Xử lý công việc dựa trên nút được bấm
             if (buttonInteraction.customId === 'farm') {
                 reward = Math.floor(Math.random() * 51) + 50; // 50-100 XC
-                workDescription = 'Nhân vật "abc" đã hoàn thành công việc làm ruộng!';
+                workDescription = 'Thằng Hùng đã hoàn thành công việc làm ruộng!';
             } else if (buttonInteraction.customId === 'mine') {
                 reward = Math.floor(Math.random() * 101) + 100; // 100-200 XC
-                workDescription = 'Nhân vật "abc" đã hoàn thành công việc đào quặng!';
+                workDescription = 'Thằng Hùng đã hoàn thành công việc đào quặng✅!';
             } else if (buttonInteraction.customId === 'hunt') {
                 reward = Math.floor(Math.random() * 151) + 200; // 200-350 XC
-                workDescription = 'Nhân vật "abc" đã hoàn thành công việc săn bắn!';
+                workDescription = 'Thằng Hùng đã hoàn thành công việc săn bắn✅!';
             }
 
             const embed = new EmbedBuilder()
