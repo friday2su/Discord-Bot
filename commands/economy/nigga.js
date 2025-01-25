@@ -3,7 +3,7 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('work')
+        .setName('nigga')
         .setDescription('Chọn công việc cho nhân vật "abc".'),
     async execute(interaction) {
         // Tạo nút cho các công việc
