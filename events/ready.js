@@ -6,10 +6,10 @@ module.exports = {
     
     // Define statuses directly here
     const statuses = [
-      'Playing with the code!',
-      'Serving users!',
-      'Listening to commands!',
-      'Having fun with Discord!'
+      'Chơi Với Mã!',
+      'Serving Người Dùng!',
+      'Nghe commands!',
+      'Có tí niềm vui với discord!'
     ];
     
     let i = 0;
