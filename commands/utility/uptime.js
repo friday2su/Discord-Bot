@@ -19,14 +19,14 @@ function formatDuration(ms) {
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('uptime')
-        .setDescription('Displays the bot\'s uptime.'),
+        .setDescription('Thời gian bot đã chạy\'s uptime.'),
     async execute(interaction) {
         const uptime = formatDuration(interaction.client.uptime);
 
         const embed = new EmbedBuilder()
             .setColor('Green')
             .setTitle('🕒 Bot Uptime')
-            .setDescription(`I've been online for **${uptime}**.`)
+            .setDescription(`Time bot đã onl **${uptime}**.`)
             .setTimestamp();
 
         await interaction.reply({ embeds: [embed] });
