@@ -8,5 +8,5 @@ const ticketSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
 });
-
+//abc toi bi gay
 module.exports = mongoose.model('Ticket', ticketSchema);
