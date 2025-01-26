@@ -6,7 +6,7 @@ const suggestionSchema = new mongoose.Schema({
   suggestions: [{
     messageId: { type: String, required: true },
     content: { type: String, required: true },
-    // If you had votes, you could include them here, but you've mentioned to remove that.
+    //Nếu bạn có phiếu bầu, bạn có thể đưa chúng vào đây, nhưng bạn đã đề cập đến việc xóa phiếu bầu đó.
   }],
 });
 
