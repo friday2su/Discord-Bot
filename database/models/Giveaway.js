@@ -10,5 +10,5 @@ const giveawaySchema = new mongoose.Schema({
   participants: { type: Array, default: [] },
   ended: { type: Boolean, default: false },
 });
-
+// tham gia give away đê là bt.3
 module.exports = mongoose.model('Giveaway', giveawaySchema);
