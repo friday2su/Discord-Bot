@@ -10,5 +10,5 @@ const userSchema = new mongoose.Schema({
   lastWork: { type: Date, default: null },
   lastRob: { type: Date, default: null }
 });
-
+//mấy cái lồn j đấy nó sẽ lưu về cho user
 module.exports = mongoose.model('User', userSchema);
