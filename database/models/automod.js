@@ -5,7 +5,7 @@ const autoModSchema = new mongoose.Schema({
   antiInvites: { type: Boolean, default: false },
   antiLinks: { type: Boolean, default: false },
   antiSpam: { type: Boolean, default: false },
-  whitelist: { type: [String], default: [] }, // Array of user/role IDs
+  whitelist: { type: [String], default: [] }, // ID và vai trò
 });
 
 module.exports = mongoose.model('AutoMod', autoModSchema);
