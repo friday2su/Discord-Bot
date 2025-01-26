@@ -17,7 +17,7 @@ module.exports = {
                 );
                 if (missingPermissions.length > 0) {
                     return await interaction.reply({ 
-                        content: `⚠️ | I am missing the following permissions to execute this command: \`${missingPermissions.join(', ')}\`.`, 
+                        content: `⚠️ | Tao đéo có quyền dùng lệnh đấy: \`${missingPermissions.join(', ')}\`.`, 
                         ephemeral: true 
                     });
                 }
@@ -28,7 +28,7 @@ module.exports = {
                 const member = interaction.options.getMember('user');
                 if (!member.voice.channel) {
                     return await interaction.reply({ 
-                        content: `🚫 | The user must be in a voice channel to be ${command.name === 'mute' ? 'muted' : 'unmuted'}.`, 
+                        content: `🚫 | Người dùng phải ở trong một kênh thoại để có thể ${command.name === 'mute' ? 'muted' : 'unmuted'}.`, 
                         ephemeral: true 
                     });
                 }
@@ -38,7 +38,7 @@ module.exports = {
                 await command.execute(interaction, client); // Pass the client
             } catch (error) {
                 console.error(error);
-                await interaction.reply({ content: '💀 | You met a rare bot error.', ephemeral: true });
+                await interaction.reply({ content: '💀 | Mày Đã Gặp Lỗi Đéo Gì Đấy.', ephemeral: true });
             }
         }
 
