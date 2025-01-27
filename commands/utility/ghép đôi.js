@@ -1,27 +1,23 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
-const { join } = require('path');
-const axios = require('axios');
-const fs = require('fs');
-
-const lovePath = join(__dirname, 'love_pairing.png');
-const loveIconUrl = 'https://i.ibb.co/2g0wdVV/heart-icon-14.png';
+const { SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('ghepdoi')
-        .setDescription('Ghép đôi ngẫu nhiên giữa các thành viên trong kênh'),
+        .setDescription('Ghép đôi ngẫu nhiên hoặc với người bạn chọn.')
+        .addUserOption(option =>
+            option
+                .setName('user')
+                .setDescription('Người bạn muốn ghép đôi')
+                .setRequired(false)
+        ),
     async execute(interaction) {
-        try {
-            // Đảm bảo tệp ảnh trái tim được tải xuống
-            if (!fs.existsSync(lovePath)) {
-                const response = await axios.get(loveIconUrl, { responseType: 'arraybuffer' });
-                fs.writeFileSync(lovePath, response.data);
-            }
+        const targetUser = interaction.options.getUser('user');
+        const guild = interaction.guild;
 
-            // Lấy danh sách thành viên trong kênh hiện tại
-            const channel = interaction.channel;
-            const members = await channel.members.fetch();
+        // Nếu không chọn người dùng, ghép đôi ngẫu nhiên
+        if (!targetUser) {
+            const members = await guild.members.fetch();
             const participants = members.filter(member => !member.user.bot && member.id !== interaction.user.id).map(member => member);
 
             if (participants.length === 0) {
@@ -29,52 +25,29 @@ module.exports = {
                 return;
             }
 
-            // Chọn ngẫu nhiên một người để ghép đôi
-            const targetMember = participants[Math.floor(Math.random() * participants.length)];
-            const user1 = interaction.user; // Người gọi lệnh
-            const user2 = targetMember.user; // Người được ghép đôi
-
-            // Tính mức độ hiểu nhau
+            const randomMember = participants[Math.floor(Math.random() * participants.length)];
             const compatibility = Math.floor(Math.random() * 101);
 
-            // Tải avatar của hai người
-            const avatar1Path = join(__dirname, `${user1.id}.png`);
-            const avatar2Path = join(__dirname, `${user2.id}.png`);
+            await interaction.reply(`💘 **Ghép đôi thành công!**  
+            『 **${interaction.user.username}** 』 💘 『 **${randomMember.user.username}** 』  
+            **Mức độ hiểu nhau:** ${compatibility}%`);
+        } else {
+            // Nếu người dùng chọn ai đó, ghép đôi với họ
+            if (targetUser.bot) {
+                await interaction.reply('Bạn không thể ghép đôi với bot!');
+                return;
+            }
 
-            const avatar1 = await axios.get(user1.displayAvatarURL({ format: 'png', size: 512 }), { responseType: 'arraybuffer' });
-            const avatar2 = await axios.get(user2.displayAvatarURL({ format: 'png', size: 512 }), { responseType: 'arraybuffer' });
+            if (targetUser.id === interaction.user.id) {
+                await interaction.reply('Bạn không thể ghép đôi với chính mình!');
+                return;
+            }
 
-            fs.writeFileSync(avatar1Path, avatar1.data);
-            fs.writeFileSync(avatar2Path, avatar2.data);
+            const compatibility = Math.floor(Math.random() * 101);
 
-            // Tạo tin nhắn kết quả
-            const embed = new EmbedBuilder()
-                .setTitle('💘 Ghép Đôi Thành Công! 💘')
-                .setColor('Red')
-                .setDescription(`👑 Yuri xin chúc 2 anh chị trăm năm hạnh phúc!  
-                **Mức Độ Hiểu Nhau**: ${compatibility}%  
-                『 **${user1.username}** 』 💘 『 **${user2.username}** 』`)
-                .setThumbnail('attachment://love_pairing.png')
-                .setTimestamp();
-
-            const attachment1 = new AttachmentBuilder(avatar1Path, { name: `${user1.id}.png` });
-            const attachment2 = new AttachmentBuilder(avatar2Path, { name: `${user2.id}.png` });
-            const attachmentLove = new AttachmentBuilder(lovePath, { name: 'love_pairing.png' });
-
-            // Gửi tin nhắn
-            await interaction.reply({
-                embeds: [embed],
-                files: [attachment1, attachmentLove, attachment2],
-            });
-
-            // Xóa file tạm
-            fs.unlinkSync(avatar1Path);
-            fs.unlinkSync(avatar2Path);
-
-        } catch (error) {
-            console.error(error);
-            await interaction.reply('Đã xảy ra lỗi khi thực hiện lệnh.');
+            await interaction.reply(`💘 **Ghép đôi thành công!**  
+            『 **${interaction.user.username}** 』 💘 『 **${targetUser.username}** 』  
+            **Mức độ hiểu nhau:** ${compatibility}%`);
         }
     },
 };
-
