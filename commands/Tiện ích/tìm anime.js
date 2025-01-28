@@ -21,7 +21,7 @@ module.exports = {
             // Kiểm tra dữ liệu trả về từ API
             if (!data || !data.title) {
                 return interaction.reply({
-                    content: '❌ Không tìm thấy thông tin anime nào khớp với yêu cầu.',
+                    content: '❌ Không tìm thấy thông tin anime nào khớp với từ mày tìm.',
                     ephemeral: true
                 });
             }
@@ -45,7 +45,7 @@ module.exports = {
                     { name: 'Ngày phát sóng', value: data.aired || 'N/A', inline: true },
                     { name: 'Nhà sản xuất', value: data.producers || 'N/A', inline: true }
                 )
-                .setFooter({ text: 'Thông tin từ MAL API', iconURL: 'https://cdn.myanimelist.net/images/faviconv5.ico' })
+                .setFooter({ text: 'Thông tin từ API', iconURL: 'https://cdn.myanimelist.net/images/faviconv5.ico' })
                 .setTimestamp();
 
             // Gửi Embed kết quả
@@ -54,7 +54,7 @@ module.exports = {
         } catch (error) {
             console.error(error);
             await interaction.reply({
-                content: '❌ Đã xảy ra lỗi khi gọi API hoặc không tìm thấy thông tin.',
+                content: '❌ Lỗi cụ mày API rồi, thay đi hoặc không tìm đéo thấy.',
                 ephemeral: true
             });
         }
