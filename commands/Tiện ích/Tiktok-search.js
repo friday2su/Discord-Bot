@@ -30,13 +30,13 @@ module.exports = {
             // Tạo Embed để hiển thị kết quả
             const embed = new EmbedBuilder()
                 .setColor('Blue')
-                .setTitle('🔍 Kết quả tìm kiếm TikTok')
-                .setDescription(`**Tiêu đề:** ${data.title}`)
+                .setTitle('🔍 Kết quả tìm kiếm trên TikTok')
+                .setDescription(`==**Tiêu đề:**== ${data.title}`)
                 .setImage(data.cover) // Ảnh bìa video
                 .addFields(
-                    { name: 'Tải không watermark', value: `[Tải video](<${data.no_watermark}>)`, inline: true },
-                    { name: 'Tải có watermark', value: `[Tải video](<${data.watermark}>)`, inline: true },
-                    { name: 'Âm nhạc', value: `[Nghe nhạc](<${data.music}>)`, inline: true }
+                    { name: '📽️Tải không watermark💦', value: `[Tải video](<${data.no_watermark}>)`, inline: true },
+                    { name: '📺Tải có watermark🚫💦', value: `[Tải video](<${data.watermark}>)`, inline: true },
+                    { name: 'Âm nhạc🎶', value: `[Nghe nhạc](<${data.music}>)`, inline: true }
                 )
                 .setTimestamp();
 
