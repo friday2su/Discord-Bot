@@ -4,14 +4,14 @@ const axios = require('axios');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('timanime')
-        .setDescription('Tìm kiếm thông tin anime từ API.')
-        .addStringOption(option => 
+        .setDescription('Tìm kiếm thông tin anime từ API MAL.')
+        .addStringOption(option =>
             option.setName('name')
                 .setDescription('Tên anime cần tìm kiếm')
                 .setRequired(true)),
     async execute(interaction) {
         const animeName = interaction.options.getString('name');
-        const apiUrl = `https://zaikyoo.onrender.com/api/anime?query=${encodeURIComponent(animeName)}`;
+        const apiUrl = `https://zaikyoo.onrender.com/api/mal?title=${encodeURIComponent(animeName)}`;
 
         try {
             // Gọi API để lấy dữ liệu
@@ -45,7 +45,7 @@ module.exports = {
                     { name: 'Ngày phát sóng', value: data.aired || 'N/A', inline: true },
                     { name: 'Nhà sản xuất', value: data.producers || 'N/A', inline: true }
                 )
-                .setFooter({ text: 'Thông tin từ API Anime', iconURL: 'https://cdn.myanimelist.net/images/faviconv5.ico' })
+                .setFooter({ text: 'Thông tin từ MAL API', iconURL: 'https://cdn.myanimelist.net/images/faviconv5.ico' })
                 .setTimestamp();
 
             // Gửi Embed kết quả
