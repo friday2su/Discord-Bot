@@ -27,7 +27,7 @@ function calculateRandomPoints() {
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('phantich')
-        .setDescription('Phân tích thông tin người dùng từ Discord!')
+        .setDescription('Phân tích thông tin user')
         .addUserOption(option => option.setName('user').setDescription('Người dùng cần phân tích').setRequired(true)),
     async execute(interaction) {
         const user = interaction.options.getUser('user');
