@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('discord.js');
 
-// Danh sách các loại cá
 const fishList = [
     { name: "Cá chà bặc 🐧", rate: 0.25, point: 10, coin: 10000 },
     { name: "Megalondon 🤯", rate: 0.10, point: 99, coin: 100000 },
@@ -60,7 +59,6 @@ const fishList = [
   { name: "Kho báo", rate: 1, point: 1000, coin: 1000 }
 ];
 
-// Hàm chọn cá ngẫu nhiên dựa trên tỷ lệ
 function getRandomFish() {
     const totalRate = fishList.reduce((sum, fish) => sum + fish.rate, 0);
     const random = Math.random() * totalRate;
@@ -80,21 +78,17 @@ module.exports = {
         .setName('cauca')
         .setDescription('Thử vận may câu cá và nhận thưởng!'),
     async execute(interaction) {
-        const fish = getRandomFish(); // Lấy cá ngẫu nhiên
-        const user = interaction.user.tag; // Tên người dùng
-
+        const fish = getRandomFish(); 
+        const user = interaction.user.tag; 
         // Tạo embed thông báo kết quả
         const embed = new EmbedBuilder()
-            .setColor(fish.coin > 0 ? 'Green' : 'Red') // Màu xanh nếu có thưởng, đỏ nếu không
+            .setColor(fish.coin > 0 ? 'Green' : 'Red') 
             .setTitle(`🎣 ${user} đã câu được một con cá!`)
             .setDescription(`**Tên cá:** ${fish.name}\n**Điểm:** ${fish.point}\n**XC nhận được:** ${fish.coin} XC`)
             .setTimestamp();
 
-        // Gửi kết quả
         await interaction.reply({ embeds: [embed] });
 
-        // (Tùy chọn) Thêm logic lưu XC vào cơ sở dữ liệu nếu bạn cần
-        // Ví dụ: db.updateUserXC(interaction.user.id, fish.coin);
     },
 };
 
