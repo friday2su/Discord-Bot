@@ -4,7 +4,7 @@ const axios = require('axios');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('timanime')
-        .setDescription('Tìm kiếm thông tin anime từ API MAL.')
+        .setDescription('Tìm kiếm thông tin anime.')
         .addStringOption(option =>
             option.setName('name')
                 .setDescription('Tên anime cần tìm kiếm')
@@ -14,11 +14,9 @@ module.exports = {
         const apiUrl = `https://zaikyoo.onrender.com/api/mal?title=${encodeURIComponent(animeName)}`;
 
         try {
-            // Gọi API để lấy dữ liệu
             const response = await axios.get(apiUrl);
             const data = response.data;
 
-            // Kiểm tra dữ liệu trả về từ API
             if (!data || !data.title) {
                 return interaction.reply({
                     content: '❌ Không tìm thấy thông tin anime nào khớp với từ mày tìm.',
@@ -26,7 +24,6 @@ module.exports = {
                 });
             }
 
-            // Tạo Embed để hiển thị thông tin anime
             const embed = new EmbedBuilder()
                 .setColor('Blue')
                 .setTitle(`📺 Anime: ${data.title}`)
@@ -48,7 +45,6 @@ module.exports = {
                 .setFooter({ text: 'Thông tin từ API', iconURL: 'https://cdn.myanimelist.net/images/faviconv5.ico' })
                 .setTimestamp();
 
-            // Gửi Embed kết quả
             await interaction.reply({ embeds: [embed] });
 
         } catch (error) {
