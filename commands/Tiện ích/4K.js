@@ -1,36 +1,35 @@
 const { SlashCommandBuilder } = require('discord.js');
-const fs = require('fs-extra');
 const axios = require('axios');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('4k')
-    .setDescription('Tải ảnh từ link hoặc reply ảnh.')
-    .addStringOption(option =>
-      option.setName('link')
-        .setDescription('Link ảnh hoặc reply ảnh.')),
+    .setName('tarot')
+    .setDescription('Rút một lá bài Tarot ngẫu nhiên và hiển thị thông tin của nó.'),
+  
   async execute(interaction) {
-    const linkUp = interaction.options.getString('link') || (interaction.message.reference ? interaction.message.reference.message.attachments[0].url : '');
-
-    if (!linkUp) {
-      return interaction.reply({ content: 'Vui lòng reply 1 ảnh hoặc nhập link ảnh!', ephemeral: true });
-    }
-
     try {
-      // Tải ảnh từ liên kết
-      const response = await axios.get(linkUp, { responseType: "arraybuffer" });
-      const filePath = `./cache/netanh.png`;
+      // Gọi API để lấy thông tin lá bài Tarot
+      const response = await axios.get('https://subhatde.id.vn/tarot');
+      const tarotCards = response.data;
 
-      fs.writeFileSync(filePath, Buffer.from(response.data, "binary"));
+      // Chọn một lá bài ngẫu nhiên
+      const randomCard = tarotCards[Math.floor(Math.random() * tarotCards.length)];
 
-      // Trả về ảnh
-      await interaction.reply({ content: '🧸 Ảnh của bạn đây!', files: [filePath] });
+      // Tạo thông điệp để gửi
+      const resultMessage = `
+        **==Tên==:** ${randomCard.name}
+        **==Bộ bài🃏==:** ${randomCard.suite}
+        **==Mô tả📝==:** ${randomCard.vi.description}
+        **==Diễn giải🏫==:** ${randomCard.vi.interpretation}
+        **==Diễn giải ngược==:** ${randomCard.vi.reversed}
+        **==Hình ảnh🖼️==:** ${randomCard.image}
+      `;
 
-      // Xóa file sau khi gửi
-      fs.unlinkSync(filePath);
-
+      // Gửi thông điệp đến người dùng
+      await interaction.reply({ content: resultMessage });
     } catch (error) {
-      return interaction.reply({ content: "Có lỗi xảy ra: " + error.message, ephemeral: true });
+      console.error(error);
+      await interaction.reply({ content: "Có lỗi xảy ra khi rút bài Tarot. Vui lòng thử lại sau.", ephemeral: true });
     }
   }
 };
