@@ -16,7 +16,7 @@ function getRandomElement(array) {
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('Angel fish')
+        .setName('subnautica')
         .setDescription('Angel fish By Minh Son!')
         .addStringOption(option =>
             option.setName('command')
