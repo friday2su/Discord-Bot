@@ -19,11 +19,11 @@ module.exports = {
         const guild = interaction.guild;
 
         try {
-            const user1 = interaction.user; // Người gọi lệnh
-            let user2; // Người được ghép đôi
-            const compatibility = Math.floor(Math.random() * 101); // Mức độ hiểu nhau
+            const user1 = interaction.user;
+            let user2; 
+            const compatibility = Math.floor(Math.random() * 101);
 
-            // Nếu không chọn người, ghép đôi ngẫu nhiên
+        
             if (!targetUser) {
                 const members = await guild.members.fetch();
                 const participants = members.filter(member => !member.user.bot && member.id !== user1.id).map(member => member);
@@ -36,17 +36,16 @@ module.exports = {
                 user2 = participants[Math.floor(Math.random() * participants.length)].user;
             } else {
                 if (targetUser.bot) {
-                    await interaction.reply('Bạn không thể ghép đôi với bot!');
+                    await interaction.reply('Thằng Điên Yêu Bot vcl mà!');
                     return;
                 }
                 if (targetUser.id === user1.id) {
-                    await interaction.reply('Bạn không thể ghép đôi với chính mình!');
+                    await interaction.reply('Hãy yêu chính mình!');
                     return;
                 }
                 user2 = targetUser;
             }
 
-            // Tải avatar của hai người
             const avatar1Path = join(__dirname, `${user1.id}.png`);
             const avatar2Path = join(__dirname, `${user2.id}.png`);
 
@@ -75,13 +74,13 @@ module.exports = {
                 files: [attachment1, attachment2],
             });
 
-            // Xóa file avatar tạm
+    
             fs.unlinkSync(avatar1Path);
             fs.unlinkSync(avatar2Path);
         } catch (error) {
             console.error(error);
-            await interaction.reply('Đã xảy ra lỗi khi thực hiện lệnh ghép đôi!');
+            await interaction.reply('Đã xảy ra lỗi khi ghép đôi!');
         }
     },
 };
-// npm install fs path axios
+// don't forget npm install fs path axios
