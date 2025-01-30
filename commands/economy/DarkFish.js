@@ -83,7 +83,7 @@ module.exports = {
 
                 const embed = new EmbedBuilder()
                     .setColor('Aqua')
-                    .setTitle('🐠 Bạn đã câu được một con cá!')
+                    .setTitle('𝐍𝐡𝐨̛̀ 𝐂𝐡𝐢𝐞̂𝐮 🦈𝐂𝐚̂𝐮 𝐂𝐚́ 𝐓𝐡𝐚̣̂𝐩 𝐁𝐚́𝐭 𝐂𝐡𝐮̛𝐨̛̉𝐧𝐠🐉 𝐁𝐚̣𝐧 𝐃𝐚̃ 𝐂𝐚̂𝐮 𝐃𝐮̛𝐨̛̣𝐜!')
                     .setDescription(`🎣 **Tên:** ${caughtFish.name}\n📏 **Kích thước:** ${caughtFish.size} cm\n💰 **Giá bán:** ${caughtFish.sell} $\n🏞️ **Khu vực:** ${caughtFish.location}\n📊 **Loại:** ${caughtFish.category}`)
                     .setThumbnail(caughtFish.image);
 
@@ -95,3 +95,4 @@ module.exports = {
         }
     },
 };
+//npm install discord.js @discordjs/builders fs-extra axios
