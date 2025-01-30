@@ -2,7 +2,6 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('discord.js');
 const fs = require('fs-extra');
 const path = require('path');
-const axios = require('axios');
 
 const dataPath = path.join(__dirname, 'game', 'cauca', 'datauser');
 const itemPath = path.join(__dirname, 'game', 'cauca', 'item.json');
@@ -11,10 +10,14 @@ async function ensureDirectoryStructure() {
     if (!fs.existsSync(dataPath)) fs.mkdirSync(dataPath, { recursive: true });
 }
 
+function getRandomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+}
+
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('subnautica')
-        .setDescription('Trò chơi câu cá Dark Fish đầy thú vị!')
+        .setName('Dark fish')
+        .setDescription('Dark Fishing By Minh Son!')
         .addStringOption(option =>
             option.setName('command')
                 .setDescription('Nhập lệnh: register, shop, bag, fish')
@@ -52,66 +55,37 @@ module.exports = {
                 return interaction.reply({ embeds: [embed] });
             }
 
-            case 'shop': {
-                if (!fs.existsSync(userFilePath)) {
-                    return interaction.reply('⚠️ Bạn chưa đăng ký khu vực câu cá. Hãy dùng lệnh `/subnautica command:register` để bắt đầu.');
-                }
-
-                const items = JSON.parse(fs.readFileSync(itemPath));
-                const itemList = items.map((item, index) => `🎣 **${index + 1}. ${item.name}** - ${item.price}$`).join('\n');
-
-                const embed = new EmbedBuilder()
-                    .setColor('Gold')
-                    .setTitle('🎣 Fishing Shop')
-                    .setDescription(itemList)
-                    .setFooter({ text: 'Reply tin nhắn này với số thứ tự vật phẩm để mua.' });
-
-                return interaction.reply({ embeds: [embed] });
-            }
-
-            case 'bag': {
-                if (!fs.existsSync(userFilePath)) {
-                    return interaction.reply('⚠️ Bạn chưa đăng ký khu vực câu cá.');
-                }
-
-                const userData = JSON.parse(fs.readFileSync(userFilePath));
-                const fishList = userData.fishBag.map(
-                    (fish, index) => `🐟 **${index + 1}. ${fish.name}** - Size: ${fish.size}cm, Giá bán: ${fish.sell}$`
-                ).join('\n') || '🔴 Túi của bạn hiện trống.';
-
-                const embed = new EmbedBuilder()
-                    .setColor('Blue')
-                    .setTitle('🎒 Túi đồ của bạn')
-                    .setDescription(fishList);
-
-                return interaction.reply({ embeds: [embed] });
-            }
-
             case 'fish': {
                 if (!fs.existsSync(userFilePath)) {
                     return interaction.reply('⚠️ Bạn chưa đăng ký khu vực câu cá.');
                 }
 
-                const fishTypes = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythical'];
-                const randomFishType = fishTypes[Math.floor(Math.random() * fishTypes.length)];
-                const randomSize = Math.floor(Math.random() * 100) + 1;
-                const randomPrice = Math.floor(Math.random() * 500) + 50;
+                // Đọc dữ liệu các vùng và sinh vật từ item.json
+                const fishingData = JSON.parse(fs.readFileSync(itemPath));
+                
+                // Chọn ngẫu nhiên một vùng và một sinh vật trong vùng
+                const randomLocation = getRandomElement(fishingData);
+                const randomArea = getRandomElement(randomLocation.area);
+                const randomFish = getRandomElement(randomArea.creature);
 
-                const newFish = {
-                    name: `${randomFishType} Fish`,
-                    category: randomFishType,
-                    size: randomSize,
-                    sell: randomPrice,
+                const caughtFish = {
+                    name: randomFish.name,
+                    category: randomFish.category,
+                    size: randomFish.size,
+                    sell: randomFish.sell,
+                    image: randomFish.image,
+                    location: `${randomLocation.location} - ${randomArea.name}`
                 };
 
                 const userData = JSON.parse(fs.readFileSync(userFilePath));
-                userData.fishBag.push(newFish);
+                userData.fishBag.push(caughtFish);
                 fs.writeFileSync(userFilePath, JSON.stringify(userData, null, 4));
 
                 const embed = new EmbedBuilder()
                     .setColor('Aqua')
                     .setTitle('🐠 Bạn đã câu được một con cá!')
-                    .setDescription(`🎣 Tên: ${newFish.name}\n📏 Size: ${newFish.size}cm\n💰 Giá bán: ${newFish.sell}$`);
+                    .setDescription(`🎣 **Tên:** ${caughtFish.name}\n📏 **Kích thước:** ${caughtFish.size} cm\n💰 **Giá bán:** ${caughtFish.sell} $\n🏞️ **Khu vực:** ${caughtFish.location}\n📊 **Loại:** ${caughtFish.category}`)
+                    .setThumbnail(caughtFish.image);
 
                 return interaction.reply({ embeds: [embed] });
             }
