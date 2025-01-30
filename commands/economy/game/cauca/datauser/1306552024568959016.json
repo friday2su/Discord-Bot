@@ -1,1 +1,21 @@
+{
+    "name": "Pé Minh Son Cuto",
+    "discordID": "1306552024568959016",
+    "mainROD": null,
+    "GPS": {
+        "locate": null,
+        "area": null
+    },
+    "fishBag": [
+        {
+            "ID": 0,
+            "name": "Cá Thách Đấu",
+            "category": "Legendary",
+            "size": 999999,
+            "sell": 0
+        }
+    ],
+    "item": [],
+    "timeRegister": "21:53:20, 14/11/2023"
+}
 
