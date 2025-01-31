@@ -17,7 +17,7 @@ function getRandomElement(array) {
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('subnautica')
-        .setDescription('Trò chơi câu cá Subnautica đầy thú vị!')
+        .setDescription('súp nấu tí cá nhưng quá lỏ chưa update thêm!')
         .addStringOption(option =>
             option.setName('command')
                 .setDescription('Nhập lệnh: register, shop, bag, fish')
@@ -60,10 +60,8 @@ module.exports = {
                     return interaction.reply('⚠️ Bạn chưa đăng ký khu vực câu cá.');
                 }
 
-                // Đọc dữ liệu các vùng và sinh vật từ item.json
                 const fishingData = JSON.parse(fs.readFileSync(itemPath));
                 
-                // Chọn ngẫu nhiên một vùng và một sinh vật trong vùng
                 const randomLocation = getRandomElement(fishingData);
                 const randomArea = getRandomElement(randomLocation.area);
                 const randomFish = getRandomElement(randomArea.creature);
