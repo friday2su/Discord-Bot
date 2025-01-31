@@ -55,7 +55,6 @@ module.exports = {
             fs.writeFileSync(avatar1Path, avatar1.data);
             fs.writeFileSync(avatar2Path, avatar2.data);
 
-            // Tạo Embed với avatar
             const embed = new EmbedBuilder()
                 .setTitle('💘 Ghép Đôi Thành Công! 💘')
                 .setColor('Red')
@@ -68,7 +67,6 @@ module.exports = {
             const attachment1 = new AttachmentBuilder(avatar1Path, { name: `${user1.id}.png` });
             const attachment2 = new AttachmentBuilder(avatar2Path, { name: `${user2.id}.png` });
 
-            // Gửi tin nhắn với avatar và embed
             await interaction.reply({
                 embeds: [embed],
                 files: [attachment1, attachment2],
