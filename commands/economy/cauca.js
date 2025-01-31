@@ -80,7 +80,6 @@ module.exports = {
     async execute(interaction) {
         const fish = getRandomFish(); 
         const user = interaction.user.tag; 
-        // Tạo embed thông báo kết quả
         const embed = new EmbedBuilder()
             .setColor(fish.coin > 0 ? 'Green' : 'Red') 
             .setTitle(`🎣 ${user} đã câu được một con cá!`)
