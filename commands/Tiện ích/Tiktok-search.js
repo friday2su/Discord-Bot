@@ -15,11 +15,9 @@ module.exports = {
         const apiUrl = `https://zaikyoo.onrender.com/api/tiktok?query=${encodeURIComponent(query)}`; // URL API
 
         try {
-            // Gọi API
             const response = await axios.get(apiUrl);
             const data = response.data;
 
-            // Kiểm tra nếu API không trả về dữ liệu
             if (!data || !data.title || !data.no_watermark) {
                 return interaction.reply({
                     content: '❌ Không tìm thấy video TikTok nào phù hợp với từ khóa của bạn.',
@@ -27,7 +25,6 @@ module.exports = {
                 });
             }
 
-            // Tạo Embed để hiển thị kết quả
             const embed = new EmbedBuilder()
                 .setColor('Blue')
                 .setTitle('🔍 Kết quả tìm kiếm trên TikTok')
@@ -40,11 +37,9 @@ module.exports = {
                 )
                 .setTimestamp();
 
-            // Gửi kết quả
             await interaction.reply({ embeds: [embed] });
         } catch (error) {
             console.error(error);
-            // Xử lý lỗi nếu API không phản hồi hoặc lỗi khác
             await interaction.reply({
                 content: '❌ Đã xảy ra lỗi khi kết nối với API hoặc không tìm thấy video.',
                 ephemeral: true
