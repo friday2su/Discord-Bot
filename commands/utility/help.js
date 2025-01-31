@@ -31,17 +31,17 @@ module.exports = {
 
     const generateHomeEmbed = () => ({
       color: 0x0099ff,
-      title: '✨ Funio is here to help!',
-      description: 'It is a multipurpose bot for your Discord. It can help you to build a Super server.',
+      title: '✨ Yuri ở đây để giúp các bé!',
+      description: 'Nó là một bot đa năng cho Discord của bạn. Nó có thể giúp bạn xây dựng một siêu máy chủ.',
       thumbnail: {
         url: botIcon,
       },
       fields: [
-        { name: '📌 __BOT INFO__', value: `> :arrow_right: Prefix: \`${process.env.PREFIX}\`\n> :arrow_right: Discord.js Version: \`v${require('discord.js').version}\`\n> :arrow_right: Running on Node: \`${process.versions.node}\`\n> :arrow_right: Made by \`Minh.son🎮\`` },
+        { name: '📌 __BOT INFO__', value: `> :arrow_right: Prefix: \`${process.env.PREFIX}\`\n> :arrow_right: Discord.js Version: \`v${require('discord.js').version}\`\n> :arrow_right: CHạy trên Node: \`${process.versions.node}\`\n> :arrow_right: Made by \`Minh.son🎮\`` },
         { name: '📋 __Danh mục có sẵn__', value: categories.map(cat => `> ${categoryEmojis[cat] || '❓'} ${cat.charAt(0).toUpperCase() + cat.slice(1)}`).join('\n') },
       ],
       footer: {
-        text: 'Use the buttons below to navigate.',
+        text: '🦈Sử dụng các nút bên dưới để xem lệnh🖼️.',
       },
     });
 
@@ -58,7 +58,7 @@ module.exports = {
       return {
         color: 0x0099ff,
         title: `📋 __${category.charAt(0).toUpperCase() + category.slice(1)} Commands__`,
-        description: commands || 'No commands available in this category.',
+        description: commands || 'Không có lệnh nào có sẵn trong danh mục này.',
         footer: {
           text: `Page ${index + 1} of ${categories.length}`,
         },
