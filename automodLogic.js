@@ -10,7 +10,7 @@ module.exports = async (message) => {
 
   // Function to send a warning message in the same channel
   const sendWarning = async (reason) => {
-    const warningMessage = `🚫 **Warning!** Your message was deleted due to: **${reason}**.`;
+    const warningMessage = `🚫 **Warning⚠️** 😇Tin nhắn của mày đã bị xóa do⛏️: **${reason}**.`;
     const warning = await message.channel.send(warningMessage); // Send the warning message
     setTimeout(() => warning.delete(), 10000); // Delete the warning message after 10 seconds
   };
