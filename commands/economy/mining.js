@@ -18,7 +18,7 @@ function getRandomValue(min, max) {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('mining')
-    .setDescription('Thử vận may khai thác khoáng sản và nhận thưởng!'),
+    .setDescription('Thăm ngàn rồi sẽ có lúa!'),
   
   async execute(interaction) {
     try {
@@ -48,14 +48,12 @@ module.exports = {
 
       replyMessage += `💰 Total 𝚌𝚘𝚒𝚗𝚜 earned: ${totalAmount.toLocaleString()} 𝚌𝚘𝚒𝚗𝚜 💰`;
 
-      // Tạo embed thông báo kết quả
       const embed = new EmbedBuilder()
         .setColor('Gold')
         .setTitle(`⛏️ Khai thác khoáng sản!`)
         .setDescription(replyMessage)
         .setTimestamp();
 
-      // Gửi tin nhắn với ảnh đính kèm
       const attachment = new AttachmentBuilder(Buffer.from(mineImage), { name: 'mining.gif' });
       await interaction.reply({ embeds: [embed], files: [attachment] });
 
