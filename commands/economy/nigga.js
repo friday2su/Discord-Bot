@@ -29,23 +29,22 @@ module.exports = {
         });
 
         // Chờ người dùng bấm nút
-        const filter = (i) => i.user.id === interaction.user.id; // Chỉ nhận tương tác từ người đã gửi lệnh
+        const filter = (i) => i.user.id === interaction.user.id; 
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
 
         collector.on('collect', async (buttonInteraction) => {
             let reward;
             let workDescription;
 
-            // Xử lý công việc dựa trên nút được bấm
             if (buttonInteraction.customId === 'farm') {
                 reward = Math.floor(Math.random() * 51) + 50; // 50-100 XC
-                workDescription = 'Thằng Hùng đã hoàn thành công việc làm ruộng!';
+                workDescription = 'Thằng Hùng đã cày 100 thửa ruộng!';
             } else if (buttonInteraction.customId === 'mine') {
                 reward = Math.floor(Math.random() * 101) + 100; // 100-200 XC
-                workDescription = 'Thằng Hùng đã hoàn thành công việc đào quặng✅!';
+                workDescription = 'Thằng Hùng đã đào được 2 viên kim cương💎✅!';
             } else if (buttonInteraction.customId === 'hunt') {
                 reward = Math.floor(Math.random() * 151) + 200; // 200-350 XC
-                workDescription = 'Thằng Hùng đã hoàn thành công việc săn bắn✅!';
+                workDescription = 'Thằng Hùng đã bị lợn rừng kill chết🪦✅!';
             }
 
             const embed = new EmbedBuilder()
