@@ -4,7 +4,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('ping')
-        .setDescription('Displays the bot latency and API latency.'),
+        .setDescription('check delay với API.'),
     async execute(interaction) {
         const sent = await interaction.reply({ content: 'Pinging...', fetchReply: true });
         const botLatency = sent.createdTimestamp - interaction.createdTimestamp;
