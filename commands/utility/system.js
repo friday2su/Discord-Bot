@@ -40,7 +40,7 @@ async function getSystemInfo() {
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('system')
-        .setDescription('Hiển thị thông tin hệ thống và hình ảnh ngẫu nhiên từ API'),
+        .setDescription('Hiển thị thông tin hệ thống và đéo gì đó'),
     async execute(interaction) {
         try {
             // Gọi API lấy hình ảnh từ API gái xinh
@@ -48,12 +48,10 @@ module.exports = {
             const imageUrl = imageResponse.data.url || null;
             const imageAuthor = imageResponse.data.author || 'N/A';
 
-            // Lấy thông tin hệ thống
             const {
                 cpuData, tempData, loadData, memData, osData, diskData, networkData, fsData
             } = await getSystemInfo();
 
-            // Tạo Embed hiển thị thông tin
             const embed = new EmbedBuilder()
                 .setColor('Green')
                 .setTitle('📊 Thông tin hệ thống')
