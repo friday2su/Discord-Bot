@@ -4,7 +4,7 @@ const axios = require('axios');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('covid')
-        .setDescription('Xem thông tin COVID-19 của một quốc gia')
+        .setDescription('Xem con chó COVID-19 đã làm gì')
         .addStringOption(option => 
             option.setName('quocgia')
                 .setDescription('Tên quốc gia')
