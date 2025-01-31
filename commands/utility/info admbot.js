@@ -3,9 +3,8 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('info-admin')
-        .setDescription('Hiển thị thông tin cơ bản về admin.'),
+        .setDescription('info Minh Son depchai.'),
     async execute(interaction) {
-        // Tạo Embed chứa thông tin admin
         const embed = new EmbedBuilder()
             .setColor('Blue')
             .setTitle('Thông tin Admin 🛡️')
@@ -25,9 +24,8 @@ module.exports = {
             `)
             .setImage('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnZ0anhheHBuZHFoeHRjb3FycHU4cmN4c3d4aDl3dWNybHhwb3doeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/96GnoTw2B0v00jYdat/giphy.gif')
             .setTimestamp()
-            .setFooter({ text: 'Thông tin chi tiết về admin!', iconURL: 'https://cdn-icons-png.flaticon.com/512/1973/1973685.png' });
+            .setFooter({ text: 'Thông tin chi tiết về Mson!', iconURL: 'https://cdn-icons-png.flaticon.com/512/1973/1973685.png' });
 
-        // Gửi phản hồi bằng Embed
         await interaction.reply({
             embeds: [embed],
         });
