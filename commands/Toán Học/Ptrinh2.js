@@ -35,15 +35,16 @@ module.exports = {
         await delay(1000); // Chờ 1 giây
 
         if (delta < 0) {
-            return interaction.followUp("🪦===𝐏𝐞́ 𝐘𝐮𝐫𝐢 𝐡𝐚̆𝐦 𝐭𝐢́𝐧𝐡 𝐝𝐮̛𝐨̛̣𝐜, 𝐚𝐢 𝐤𝐞̂𝐮 𝐧𝐨́ 𝐯𝐨̂ 𝐧𝐠𝐡𝐢𝐞̣̂𝐦===😿(Δ < 0)");
+            return interaction.followUp("❌ Phương trình vô nghiệm (Δ < 0)");
         } else if (delta === 0) {
             let x = -b / (2 * a);
-            return interaction.followUp("👨‍🔬━━━━𝐏𝐞́ 𝐭𝐡𝐚̂́𝐲 𝐜𝐨́𝐚 𝐧𝐠𝐡𝐢𝐞̣̂𝐦 𝐤𝐞́𝐩 𝐚́ 𝐚𝐢𝐮━━━━: **x₁ = x₂ = ${x}**`);
+            return interaction.followUp(`✅ Phương trình có nghiệm kép: **x₁ = x₂ = ${x}**`);
         } else {
             let x1 = (-b + Math.sqrt(delta)) / (2 * a);
             let x2 = (-b - Math.sqrt(delta)) / (2 * a);
-            return interaction.followUp(`✅ ┊𝐏𝐡𝐮̛𝐨̛𝐧𝐠 𝐭𝐫𝐢̀𝐧𝐡 𝐜𝐨́ 𝐡𝐚𝐢 𝐧𝐠𝐡𝐢𝐞̣̂𝐦ツ┊: **x₁ = ${x1}**, **x₂ = ${x2}**`);
+            return interaction.followUp(`✅ Phương trình có hai nghiệm: **x₁ = ${x1}**, **x₂ = ${x2}**`);
         }
     }
 };
+
 
