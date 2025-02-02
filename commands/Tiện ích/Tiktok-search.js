@@ -11,8 +11,8 @@ module.exports = {
                 .setDescription('Từ khóa bạn muốn tìm kiếm')
                 .setRequired(true)),
     async execute(interaction) {
-        const query = interaction.options.getString('query'); // Lấy từ khóa người dùng nhập
-        const apiUrl = `https://zaikyoo.onrender.com/api/tiktok?query=${encodeURIComponent(query)}`; // URL API
+        const query = interaction.options.getString('query'); 
+        const apiUrl = `https://zaikyoo.onrender.com/api/tiktok?query=${encodeURIComponent(query)}`; 
 
         try {
             const response = await axios.get(apiUrl);
@@ -21,7 +21,7 @@ module.exports = {
             if (!data || !data.title || !data.no_watermark) {
                 return interaction.reply({
                     content: '❌ Không tìm thấy video TikTok nào phù hợp với từ khóa của bạn.',
-                    ephemeral: true // Chỉ người dùng thấy
+                    ephemeral: true 
                 });
             }
 
@@ -29,7 +29,7 @@ module.exports = {
                 .setColor('Blue')
                 .setTitle('🔍 Kết quả tìm kiếm trên TikTok')
                 .setDescription(`==**Tiêu đề:**== ${data.title}`)
-                .setImage(data.cover) // Ảnh bìa video
+                .setImage(data.cover) 
                 .addFields(
                     { name: '📽️Tải không watermark💦', value: `[Tải video](<${data.no_watermark}>)`, inline: true },
                     { name: '📺Tải có watermark🚫💦', value: `[Tải video](<${data.watermark}>)`, inline: true },
