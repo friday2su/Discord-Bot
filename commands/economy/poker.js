@@ -3,16 +3,20 @@ const fs = require('fs');
 const path = require('path');
 
 const initialBet = 50;
+const minBlindsBet = 50;
+const maxBlindsBet = 100;
+const minBet = 500;
+const maxBet = 1000;
 
 let gameState = {};
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('poker')
-    .setDescription('Chơi trò chơi Poker với bot và cược 50XC mỗi ván.')
+    .setDescription('Chơi trò chơi Poker với bot và đặt cược ngẫu nhiên mỗi ván.')
     .addStringOption(option =>
       option.setName('action')
-        .setDescription('Chọn hành động (Blinds, Check, Call, Fold, All-in, Pot, Showdown)')
+        .setDescription('Chọn hành động (Blinds, Check, Call, Fold, All-in, Pot, Showdown, Var)')
         .setRequired(true)
         .addChoices(
           { name: 'Blinds', value: 'blinds' },
@@ -21,7 +25,8 @@ module.exports = {
           { name: 'Fold', value: 'fold' },
           { name: 'All-in', value: 'allin' },
           { name: 'Pot', value: 'pot' },
-          { name: 'Showdown', value: 'showdown' }
+          { name: 'Showdown', value: 'showdown' },
+          { name: 'Var', value: 'var' }
         )
     ),
   async execute(interaction) {
@@ -32,19 +37,27 @@ module.exports = {
       gameState[userId] = {
         playerHand: [],
         botHand: [],
-        pot: initialBet,
+        pot: getRandomBet(),
+        playerBalance: 1000, // Thêm thuộc tính số dư của người chơi
       };
 
       gameState[userId].playerHand = getRandomHand();
       gameState[userId].botHand = getRandomHand();
 
-      await interaction.reply(`Bạn đã cược 50XC. Đây là lá bài của bạn: ${formatHand(gameState[userId].playerHand)}`);
+      await interaction.reply(`Bạn đã cược ${gameState[userId].pot}XC. Đây là lá bài của bạn: ${formatHand(gameState[userId].playerHand)}`);
     } else {
-      // Xử lý các hành động của người chơi
       handlePlayerAction(interaction, action, userId);
     }
   }
 };
+
+function getRandomBet() {
+  return Math.floor(Math.random() * (maxBet - minBet + 1)) + minBet;
+}
+
+function getRandomBlindsBet() {
+  return Math.floor(Math.random() * (maxBlindsBet - minBlindsBet + 1)) + minBlindsBet;
+}
 
 function getRandomHand() {
   const suits = ['♠', '♥', '♦', '♣'];
@@ -70,11 +83,13 @@ function handlePlayerAction(interaction, action, userId) {
   const game = gameState[userId];
   switch (action) {
     case 'blinds':
-      game.pot += initialBet;
-      interaction.reply(`Bạn đã đặt thêm 50XC vào pot. Tổng pot hiện tại là ${game.pot}XC.`);
+      const blindsBet = getRandomBlindsBet();
+      game.pot += blindsBet;
+      interaction.reply(`Bạn đã đặt cược ngẫu nhiên ${blindsBet}XC vào pot. Tổng pot hiện tại là ${game.pot}XC.`);
       break;
     case 'check':
-      interaction.reply('Bạn đã chọn Check.');
+      interaction.reply('Bạn đã chọn Check. Bài đã bị hủy và ván cược sẽ được thiết lập lại với lá bài mới.');
+      resetGame(interaction, userId);
       break;
     case 'call':
       game.pot += initialBet;
@@ -82,11 +97,15 @@ function handlePlayerAction(interaction, action, userId) {
       break;
     case 'fold':
       delete gameState[userId];
-      interaction.reply('Bạn đã Fold và kết thúc ván chơi.');
+      interaction.reply('Bạn đã Fold và bot cũng bỏ bài. Chờ 5 giây để ván mới bắt đầu...');
+      setTimeout(() => {
+        resetGame(interaction, userId);
+      }, 5000);
       break;
     case 'allin':
-      game.pot += 500;
-      interaction.reply(`Bạn đã All-in với 500XC. Tổng pot hiện tại là ${game.pot}XC.`);
+      const allInBet = getRandomBet();
+      game.pot += allInBet;
+      interaction.reply(`Bạn đã All-in với ${allInBet}XC. Tổng pot hiện tại là ${game.pot}XC.`);
       break;
     case 'pot':
       interaction.reply(`Tổng pot hiện tại là ${game.pot}XC.`);
@@ -95,18 +114,38 @@ function handlePlayerAction(interaction, action, userId) {
       const playerValue = calculateHandValue(game.playerHand);
       const botValue = calculateHandValue(game.botHand);
 
-      let resultMessage = `Showdown!\nLá bài bot là: ${formatHand(game.botHand)}\n`;
-      resultMessage += `Điểm của bạn: ${playerValue}, Điểm của bot: ${botValue}\n`;
+      let resultMessage = `Showdown!
+Lá bài bot là: ${formatHand(game.botHand)}
+`;
+      resultMessage += `Điểm của bạn: ${playerValue}, Điểm của bot: ${botValue}
+`;
 
       if (playerValue > botValue) {
-        resultMessage += '🎉 Bạn đã thắng!';
+        const winnings = game.pot * 2;
+        game.playerBalance += winnings;
+        resultMessage += `🎉 Bạn đã thắng và nhận được ${winnings}XC! Số dư hiện tại của bạn là ${game.playerBalance}XC.`;
       } else if (playerValue < botValue) {
-        resultMessage += '😢 Bạn đã thua!';
+        game.playerBalance -= game.pot;
+        resultMessage += `😢 Bạn đã thua và mất ${game.pot}XC. Số dư hiện tại của bạn là ${game.playerBalance}XC.`;
       } else {
         resultMessage += '🤝 Hòa!';
       }
 
       interaction.reply(resultMessage);
       break;
+    case 'var':
+      const playerHandValue = calculateHandValue(game.playerHand);
+      interaction.reply(`Lá bài của bạn: ${formatHand(game.playerHand)} với tổng điểm là ${playerHandValue}. Số dư hiện tại của bạn là ${game.playerBalance}XC.`);
+      break;
   }
+}
+
+function resetGame(interaction, userId) {
+  gameState[userId] = {
+    playerHand: getRandomHand(),
+    botHand: getRandomHand(),
+    pot: getRandomBet(),
+    playerBalance: gameState[userId].playerBalance, // Giữ nguyên số dư
+  };
+  interaction.followUp(`Ván mới bắt đầu! Bạn đã cược ${gameState[userId].pot}XC. Đây là lá bài của bạn: ${formatHand(gameState[userId].playerHand)}`);
 }
