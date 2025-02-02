@@ -19,7 +19,7 @@ module.exports = {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
-        await delay(1000); // Chờ 1 giây để tạo hiệu ứng
+        await delay(1000); 
 
         if (a === 0) {
             if (b === 0) {
@@ -32,7 +32,7 @@ module.exports = {
         let delta = b * b - 4 * a * c;
         await interaction.followUp(`🔍 Tính delta: **Δ = ${delta}**`);
 
-        await delay(1000); // Chờ 1 giây
+        await delay(1000); 
 
         if (delta < 0) {
             return interaction.followUp("❌ Phương trình vô nghiệm (Δ < 0)");
