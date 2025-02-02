@@ -23,11 +23,10 @@ module.exports = {
                 return interaction.reply(`❎ Không tìm thấy mẫu nào với từ khóa: "${keyword}"`);
             }
 
-            // Tạo embed hiển thị kết quả
             const embed = new EmbedBuilder()
                 .setColor('Blue')
                 .setTitle(`🔍 Kết quả tìm kiếm cho: "${keyword}"`)
-                .setFooter({ text: 'Dữ liệu từ API Subhatde' });
+                .setFooter({ text: 'API by Minhsoncutii' });
 
             // Hiển thị tối đa 5 mẫu
             templates.slice(0, 5).forEach((template, index) => {
@@ -44,4 +43,4 @@ module.exports = {
         }
     },
 };
-// npm install discord.js axios nếu mày cần
+// npm install discord.js axios
