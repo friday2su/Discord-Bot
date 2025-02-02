@@ -6,7 +6,6 @@ module.exports = {
         .setName('nigga')
         .setDescription('Chọn công việc cho thằng Hùng Công Nông.'),
     async execute(interaction) {
-        // Tạo nút cho các công việc
         const buttons = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setCustomId('farm')
@@ -22,13 +21,11 @@ module.exports = {
                 .setStyle(ButtonStyle.Danger)
         );
 
-        // Gửi thông báo cho người dùng với các nút
         await interaction.reply({
             content: 'Hãy chọn công việc mà bạn muốn cho nô lệ Hùng thực hiện:',
             components: [buttons]
         });
 
-        // Chờ người dùng bấm nút
         const filter = (i) => i.user.id === interaction.user.id; 
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
 
