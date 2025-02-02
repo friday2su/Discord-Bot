@@ -29,14 +29,12 @@ module.exports = {
     const action = interaction.options.getString('action');
 
     if (!gameState[userId]) {
-      // Khởi tạo bàn chơi cho người dùng mới
       gameState[userId] = {
         playerHand: [],
         botHand: [],
         pot: initialBet,
       };
 
-      // Chia bài ngẫu nhiên
       gameState[userId].playerHand = getRandomHand();
       gameState[userId].botHand = getRandomHand();
 
