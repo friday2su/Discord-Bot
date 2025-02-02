@@ -22,7 +22,6 @@ module.exports = {
         **==Hình ảnh🖼️==:** ${randomCard.image}
       `;
 
-      // Gửi thông điệp đến người dùng
       await interaction.reply({ content: resultMessage });
     } catch (error) {
       console.error(error);
