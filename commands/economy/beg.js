@@ -6,7 +6,7 @@ const checkCooldown = require('../../helpers/checkCooldown');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('beg')
-    .setDescription('Beg for some cash.'),
+    .setDescription('Xin ít tiền.'),
   async execute(interaction) {
     let user = await User.findOne({ userId: interaction.user.id });
     if (!user) {
@@ -21,7 +21,7 @@ module.exports = {
     // Cooldown check
     const cooldown = checkCooldown(user.lastBeg, config.cooldowns.beg);
     if (cooldown.remaining) {
-      return interaction.reply({ content: `🕒 | You can beg for money again in **${cooldown.time}**!`, ephemeral: true });
+      return interaction.reply({ content: `🕒 | Mày có thể xin lại trong **${cooldown.time}**!`, ephemeral: true });
     }
 
     // Randomize beg amount between 10 and 50

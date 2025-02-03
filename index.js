@@ -20,7 +20,7 @@ const client = new Client({
 // Cool ASCII banner for startup
 figlet('Bot Started!', (err, data) => {
   if (err) {
-    console.log('Something went wrong with figlet...');
+    console.log('Đã xảy ra lỗi với figle...');
     console.dir(err);
     return;
   }
@@ -67,7 +67,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
 const deployCommands = async () => {
   try {
-    console.log('🌀 Started refreshing application (/) commands.');
+    console.log('🌀 Đã bắt đầu làm mới APP (/) commands.');
 
     const commands = [];
     fs.readdirSync(commandsPath).forEach(category => {
@@ -83,15 +83,15 @@ const deployCommands = async () => {
       { body: commands }
     );
 
-    console.log('✅ Successfully reloaded application (/) commands.');
+    console.log('✅ Đã Tải APP Thành Công (/) commands.');
   } catch (error) {
-    console.error('❌ Failed to refresh application (/) commands:', error);
+    console.error('❌ Đã xảy ra lỗi khi tải APP (/) commands:', error);
   }
 };
 
 // Initialize the bot and deploy commands
 client.once('ready', () => {
-  console.log(`✅ Logged in as ${client.user.tag}`);
+  console.log(`✅ Đăng Nhập Như ${client.user.tag}`);
   deployCommands();
 });
 

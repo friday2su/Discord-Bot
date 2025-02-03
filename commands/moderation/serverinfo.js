@@ -29,21 +29,21 @@ module.exports = {
       .setTitle(`${guild.name} Server Information`)
       .setThumbnail(guild.iconURL()) // Set server icon as thumbnail
       .addFields(
-        { name: 'Server Name', value: guild.name, inline: true },
-        { name: 'Region', value: guild.preferredLocale, inline: true },
-        { name: 'Member Count', value: `${guild.memberCount}`, inline: true },
-        { name: 'Created On', value: `${guild.createdAt.toDateString()}`, inline: true },
-        { name: 'Owner', value: `${guild.ownerId ? `<@${guild.ownerId}>` : 'Unknown'}`, inline: true },
-        { name: 'Description', value: guild.description || 'No description available.', inline: true },
-        { name: 'Verification Level', value: verificationLevels[guild.verificationLevel], inline: true },
-        { name: 'Boost Level', value: guild.premiumTier.toString(), inline: true },
+        { name: 'Tên Sever🌐', value: guild.name, inline: true },
+        { name: 'Vùng đất🐳', value: guild.preferredLocale, inline: true },
+        { name: 'Số members🧑‍🤝‍🧑', value: `${guild.memberCount}`, inline: true },
+        { name: 'Được tạo vào ngày🌸', value: `${guild.createdAt.toDateString()}`, inline: true },
+        { name: '💐Chủ Bot💐', value: `${guild.ownerId ? `<@${guild.ownerId}>` : 'Unknown'}`, inline: true },
+        { name: 'Mô Tả', value: guild.description || 'No description available.', inline: true },
+        { name: 'Cấp độ xác minh🎚️', value: verificationLevels[guild.verificationLevel], inline: true },
+        { name: 'Level của sever', value: guild.premiumTier.toString(), inline: true },
         { name: 'Total Boosts', value: `${guild.premiumSubscriptionCount}`, inline: true },
-        { name: 'AFK Channel', value: guild.afkChannel ? guild.afkChannel.name : 'None', inline: true },
-        { name: 'AFK Timeout', value: `${guild.afkTimeout / 60} minutes`, inline: true },
-        { name: 'Explicit Content Filter', value: explicitContentFilterLevels[guild.explicitContentFilter], inline: true },
-        { name: 'Roles Count', value: `${guild.roles.cache.size}`, inline: true },
-        { name: 'Emojis Count', value: `${guild.emojis.cache.size}`, inline: true },
-        { name: 'Stickers Count', value: `${guild.stickers.cache.size}`, inline: true }
+        { name: 'Kênh AFK', value: guild.afkChannel ? guild.afkChannel.name : 'None', inline: true },
+        { name: 'Hết Gìa AFK', value: `${guild.afkTimeout / 60} minutes`, inline: true },
+        { name: 'Bộ lọc nội dung rõ ràng📝', value: explicitContentFilterLevels[guild.explicitContentFilter], inline: true },
+        { name: 'Roles🎫 Count', value: `${guild.roles.cache.size}`, inline: true },
+        { name: '🌸Số Emojis😏', value: `${guild.emojis.cache.size}`, inline: true },
+        { name: '🎫Số Stickers🪼', value: `${guild.stickers.cache.size}`, inline: true }
       )
       .setFooter({ text: `ID: ${guild.id}` })
       .setTimestamp();

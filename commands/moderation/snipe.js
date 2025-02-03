@@ -5,7 +5,7 @@ const messageDeleteEvent = require('../../events/messageDelete');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('snipe')
-    .setDescription('Shows the most recent deleted message in this channel.'),
+    .setDescription('hiển thị tin nhắn đã xóa gần đây nhất trong kênh này.'),
 
   async execute(interaction) {
     const lastDeletedMessage = messageDeleteEvent.getLastDeletedMessage();

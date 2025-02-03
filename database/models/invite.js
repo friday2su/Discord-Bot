@@ -5,5 +5,5 @@ const inviteSchema = new mongoose.Schema({
   guildId: { type: String, required: true },
   invites: { type: Number, default: 0 }
 });
-
+//anh ba sắp phát điên 
 module.exports = mongoose.model('Invite', inviteSchema);

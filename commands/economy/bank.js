@@ -4,13 +4,13 @@ const User = require('../../database/models/User');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('bank')
-    .setDescription('Check your cash and bank balance.'),
+    .setDescription('Kiểm tra số dư tiền mặt và ngân hàng .'),
   async execute(interaction) {
     const user = await User.findOne({ userId: interaction.user.id });
     if (!user) {
-      return interaction.reply({ content: 'You have no account yet.', ephemeral: true });
+      return interaction.reply({ content: 'Bạn chưa có tài khoản🏦.', ephemeral: true });
     }
 
-    await interaction.reply(`🏦 | **${interaction.user.username}**, you have **${user.cash} cash** and **${user.bank} in the bank**.`);
+    await interaction.reply(`🏦 | **${interaction.user.username}**, Mày có **${user.cash} cash💵** và **${user.bank} trong ngân hàng💵💳**.`);
   }
 };

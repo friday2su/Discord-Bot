@@ -9,7 +9,7 @@ module.exports = {
     const user = interaction.options.getUser('user') || interaction.user;
 
     const member = await interaction.guild.members.fetch(user.id);
-    const userInfo = `**User:** ${user.tag}\n**Joined Server On:** ${member.joinedAt.toDateString()}\n**Roles:** ${member.roles.cache.map(role => role.name).join(', ') || 'None'}`;
+    const userInfo = `**Người dùng:** ${user.tag}\n**Đã vào sever:** ${member.joinedAt.toDateString()}\n**Vai Trò:** ${member.roles.cache.map(role => role.name).join(', ') || 'None'}`;
     return interaction.reply({ content: userInfo, ephemeral: true });
   }
 };
